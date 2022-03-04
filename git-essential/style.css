@@ -1,0 +1,10 @@
+.nav_brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav_links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
