@@ -1,5 +1,20 @@
 .btn {
   border-radius: 100%;
   aspect-ratio: 1/1;
+  font-size: 0.6em;
   width: 5em;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #FFF2;
+}
+.btn:active {
+  box-shadow: 0 0 5px white;
+}
+.btn:disabled {
+  border-color: gray;
+  color: gray;
 }

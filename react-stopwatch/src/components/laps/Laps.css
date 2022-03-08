@@ -1,8 +1,13 @@
 .Laps {
   overflow: auto;
   padding-left: 0.5em;
+  width: 90%;
+  max-height: 100%;
+  list-style-type: none;
+  margin-bottom: 7em;
+  padding-bottom: 3em;
 }
 .Lap {
-  font-size: 2.5em;
-  width: 100%;
+  font-size: 1.5em;
+  text-align: center;
 }

@@ -1,18 +1,24 @@
 import './App.css';
-import { Time, Laps, Controller } from './components';
-import {useState} from 'react'
+import {Time, Laps, Controller} from './components';
+import {useState} from 'react';
 
 function App() {
-  const [time, setTime] = useState();
-
-  return (
-    <main className="App">
-      <h1>Stopwatch</h1>
-      <Time hr={"00"} min={"00"} sec={"00"} ms={"00"} />
-      <Controller/>
-      <Laps />
-    </main>
-  ); 
+	return (
+		<main className="App">
+      <h1>Stop Watch</h1>
+			<div className="App_Row">
+				<div className="App_Col">
+					<h2>Timer</h2>
+					<Time />
+					<Controller />
+				</div>
+				<div className="App_Col">
+					<h2>Laps</h2>
+					<Laps />
+				</div>
+			</div>
+		</main>
+	);
 }
 
 export default App;

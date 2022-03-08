@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import {Button} from '..';
 import {useLaps, useTimer} from '../../contexts';
 import './Controller.css'
+import { formatTime } from '../../utils';
 
 export function Controller() {
 	const {timer, setTimer} = useTimer();
@@ -18,7 +19,7 @@ export function Controller() {
 	}
 	function lap() {
 		setLaps((prev) => [
-			`${timer.hr}:${timer.min}:${timer.sec}:${timer.ms}`,
+			`Lap ${prev.length ? formatTime(prev.length + 1) : '01'} - ${formatTime(timer.hr)}:${formatTime(timer.min)}:${formatTime(timer.sec)}:${formatTime(timer.ms)}`,
 			...prev,
 		]);
 	}
