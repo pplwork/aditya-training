@@ -1,6 +1,7 @@
 import {useTimer} from '../../contexts';
 import './Time.css';
 import { formatTime } from '../../utils';
+import React from 'react';
 
 export function Time() {
 	const {timer} = useTimer();

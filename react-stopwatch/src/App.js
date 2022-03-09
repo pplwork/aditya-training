@@ -1,5 +1,6 @@
 import './App.css';
 import {Time, Laps, Controller} from './components';
+import React from 'react';
 
 function App() {
 	return (

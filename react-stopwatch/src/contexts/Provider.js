@@ -1,4 +1,5 @@
 import {LapProvider, TimerProvider} from '.';
+import React from 'react';
 
 export function Provider({children}) {
 	return (

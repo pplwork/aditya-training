@@ -1,5 +1,6 @@
 import './Laps.css';
 import {useLaps} from '../../contexts';
+import React from 'react';
 
 export function Laps() {
 	const {laps} = useLaps();
