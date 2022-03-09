@@ -1,31 +1,43 @@
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Button} from '..';
-import {useLaps, useTimer} from '../../contexts';
 import './Controller.css'
 import { formatTime } from '../../utils';
+import {useSelector, useDispatch} from 'react-redux';
+import { timerTypes, lapTypes } from '../../store';
 
 export function Controller() {
-	const {timer, setTimer} = useTimer();
-	const {setLaps} = useLaps();
+	const timer = useSelector(state => state.timer);
+	const laps = useSelector(state => state.laps);
+	const dispatch = useDispatch();
 
 	function start() {
-		setTimer((prev) => ({...prev, start: true}));
+		dispatch({
+			type: timerTypes.START_TIMER,
+		})
 	}
 	function stop() {
-		setTimer((prev) => ({...prev, start: false}));
+		dispatch({
+			type: timerTypes.STOP_TIMER,
+		})
 	}
 	function restart() {
-		setTimer((prev) => ({...prev, hr: 0, min: 0, sec: 0, ms: 0}));
+		dispatch({
+			type: timerTypes.RESTART_TIMER,
+		})
 	}
 	function lap() {
-		setLaps((prev) => [
-			`Lap ${prev.length ? formatTime(prev.length + 1) : '01'} - ${formatTime(timer.hr)}:${formatTime(timer.min)}:${formatTime(timer.sec)}:${formatTime(timer.ms)}`,
-			...prev,
-		]);
+		dispatch({
+			type: lapTypes.ADD_LAP,
+			payload: `Lap ${laps.length ? formatTime(laps.length + 1) : '01'} - ${formatTime(timer.hr)}:${formatTime(timer.min)}:${formatTime(timer.sec)}:${formatTime(timer.ms)}`,
+		})
 	}
 	function reset() {
-		setTimer({start: false, hr: 0, min: 0, sec: 0, ms: 0});
-		setLaps([]);
+		dispatch({
+			type: timerTypes.RESET_TIMER,
+		})
+		dispatch({
+			type: lapTypes.CLEAR_LAPS,
+		})
 	}
 
 	useEffect(() => {
@@ -33,19 +45,19 @@ export function Controller() {
 			if (!timer.start) return;
 
 			if (timer.min === 60)
-				setTimer((prev) => ({...prev, min: 0, hr: prev.hr + 1}));
+				dispatch({type: timerTypes.ADD_HR, payload: timer.hr + 1});
 
 			if (timer.sec === 60)
-				setTimer((prev) => ({...prev, sec: 0, min: prev.min + 1}));
+				dispatch({type: timerTypes.ADD_MIN, payload: timer.min + 1});
 
-			if (timer.ms < 10) setTimer((prev) => ({...prev, ms: prev.ms + 1}));
-			else setTimer((prev) => ({...prev, ms: 0, sec: prev.sec + 1}));
+			if (timer.ms < 10) dispatch({type: timerTypes.ADD_MS, payload: timer.ms + 1});
+			else dispatch({type: timerTypes.ADD_SEC, payload: timer.sec + 1});
 		}, 100);
 
     return ()=> {
       clearInterval(startTimer);
     };
-	}, [timer.start, setTimer, timer.min, timer.sec, timer.ms]);
+	}, [timer.start, dispatch, timer.min, timer.sec, timer.ms]);
 
 	return (
 		<div className="controller">

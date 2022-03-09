@@ -1,9 +1,10 @@
-import {useTimer} from '../../contexts';
+import React from 'react';
+import {useSelector} from 'react-redux';
 import './Time.css';
 import { formatTime } from '../../utils';
 
 export function Time() {
-	const {timer} = useTimer();
+	const timer = useSelector(state => state.timer);
 	return (
 		<div className="time">
 			<span className="time-hr">{formatTime(timer.hr)}</span>

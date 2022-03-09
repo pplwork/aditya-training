@@ -1,6 +1,6 @@
 import './App.css';
+import React from 'react';
 import {Time, Laps, Controller} from './components';
-import {useState} from 'react';
 
 function App() {
 	return (
