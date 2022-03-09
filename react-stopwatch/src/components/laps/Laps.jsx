@@ -1,6 +1,5 @@
 import './Laps.css';
 import {useLaps} from '../../contexts';
-import { formatTime } from '../../utils';
 
 export function Laps() {
 	const {laps} = useLaps();
