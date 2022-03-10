@@ -1,67 +1,76 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Button} from '..';
-import {useLaps, useTimer} from '../../contexts';
-import './Controller.css'
-import { formatTime } from '../../utils';
+import './Controller.css';
+import {formatTime} from '../../utils';
 
-export function Controller() {
-	const {timer, setTimer} = useTimer();
-	const {setLaps} = useLaps();
+export class Controller extends React.Component {
+	startTimer = null;
+	timer = this.props.timer;
+	setTimer = this.props.setTimer;
+	laps = this.props.laps;
+	setLaps = this.props.setLaps;
 
-	function start() {
-		setTimer((prev) => ({...prev, start: true}));
+	start = () => {
+		this.setTimer({start: true});
 	}
-	function stop() {
-		setTimer((prev) => ({...prev, start: false}));
+	stop = () => {
+		this.setTimer((prev) => ({...prev, start: false}));
 	}
-	function restart() {
-		setTimer((prev) => ({...prev, hr: 0, min: 0, sec: 0, ms: 0}));
+	restart = () => {
+		this.setTimer((prev) => ({...prev, hr: 0, min: 0, sec: 0, ms: 0}));
 	}
-	function lap() {
-		setLaps((prev) => [
-			`Lap ${prev.length ? formatTime(prev.length + 1) : '01'} - ${formatTime(timer.hr)}:${formatTime(timer.min)}:${formatTime(timer.sec)}:${formatTime(timer.ms)}`,
-			...prev,
+	lap = () => {
+		this.setLaps((prev) => [
+			`Lap ${
+				prev.laps.length ? formatTime(prev.laps.length + 1) : '01'
+			} - ${formatTime(this.timer.hr)}:${formatTime(
+				this.timer.min
+			)}:${formatTime(this.timer.sec)}:${formatTime(this.timer.ms)}`,
+			...prev.laps,
 		]);
 	}
-	function reset() {
-		setTimer({start: false, hr: 0, min: 0, sec: 0, ms: 0});
-		setLaps([]);
+	reset = () => {
+		this.setTimer({start: false, hr: 0, min: 0, sec: 0, ms: 0});
+		this.setLaps({laps: []});
 	}
 
-	useEffect(() => {
-		let startTimer = setInterval(() => {
-			if (!timer.start) return;
+	componentDidUpdate = () => {
+		this.startTimer = setInterval(() => {
+			if (!this.timer.start) return;
 
-			if (timer.min === 60)
-				setTimer((prev) => ({...prev, min: 0, hr: prev.hr + 1}));
+			if (this.timer.min === 60)
+				this.setTimer({min: 0, hr: this.timer.hr + 1});
 
-			if (timer.sec === 60)
-				setTimer((prev) => ({...prev, sec: 0, min: prev.min + 1}));
+			if (this.timer.sec === 60)
+				this.setTimer({sec: 0, min: this.timer.min + 1});
 
-			if (timer.ms < 10) setTimer((prev) => ({...prev, ms: prev.ms + 1}));
-			else setTimer((prev) => ({...prev, ms: 0, sec: prev.sec + 1}));
+			if (this.timer.ms < 10)
+				this.setTimer({ms: this.timer.ms + 1});
+			else this.setTimer({ms: 0, sec: this.timer.sec + 1});
 		}, 100);
+	}
 
-    return ()=> {
-      clearInterval(startTimer);
-    };
-	}, [timer.start, setTimer, timer.min, timer.sec, timer.ms]);
+	componentWillUnmount = () => {
+		clearInterval(this.startTimer);
+	}
 
-	return (
-		<div className="controller">
-			<Button onClick={start} disabled={timer.start}>
-				Start
-			</Button>
-			<Button onClick={lap} disabled={!timer.start}>
-				Lap
-			</Button>
-			<Button onClick={stop} disabled={!timer.start}>
-				Stop
-			</Button>
-			<Button onClick={restart} disabled={!timer.start}>
-				Restart
-			</Button>
-			<Button onClick={reset}>Reset</Button>
-		</div>
-	);
+	render() {
+		return (
+			<div className="controller">
+				<Button onClick={this.start} disabled={this.timer.start}>
+					Start
+				</Button>
+				<Button onClick={this.lap} disabled={!this.timer.start}>
+					Lap
+				</Button>
+				<Button onClick={this.stop} disabled={!this.timer.start}>
+					Stop
+				</Button>
+				<Button onClick={this.restart} disabled={!this.timer.start}>
+					Restart
+				</Button>
+				<Button onClick={this.reset}>Reset</Button>
+			</div>
+		);
+	}
 }

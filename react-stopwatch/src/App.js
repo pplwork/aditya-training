@@ -1,6 +1,7 @@
 import './App.css';
 import {Time, Laps, Controller} from './components';
 import React from 'react';
+import {TimerContext, LapContext} from './contexts';
 
 class App extends React.Component {
 	render() {
@@ -11,7 +12,20 @@ class App extends React.Component {
 					<div className="App_Col">
 						<h2>Timer</h2>
 						<Time />
-						<Controller />
+						<TimerContext.Consumer>
+							{({timer, setTimer}) => (
+								<LapContext.Consumer>
+									{({laps, setLaps}) => (
+										<Controller
+											timer={timer}
+											setTimer={setTimer}
+											laps={laps}
+											setLaps={setLaps}
+										/>
+									)}
+								</LapContext.Consumer>
+							)}
+						</TimerContext.Consumer>
 					</div>
 					<div className="App_Col">
 						<h2>Laps</h2>

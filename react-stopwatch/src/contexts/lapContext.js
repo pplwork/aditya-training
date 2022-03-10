@@ -1,16 +1,16 @@
-import React, {createContext, useContext, useState} from 'react'
+import React, {createContext} from 'react';
 
-const LapContext = createContext();
+export const LapContext = createContext();
 
-export function useLaps () {
-  return useContext(LapContext);
-}
-
-export function LapProvider({children}){
-  const [laps, setLaps] = useState([]);
-  return (
-    <LapContext.Provider value={{laps, setLaps}}>
-      {children}
-    </LapContext.Provider>
-  )
+export class LapProvider extends React.Component {
+	state = {
+		laps: [],
+	};
+	render() {
+		return (
+			<LapContext.Provider value={{laps: this.state.laps, setLaps: this.setState}}>
+				{this.props.children}
+			</LapContext.Provider>
+		);
+	}
 }

@@ -1,16 +1,21 @@
-import React, {createContext, useContext, useState} from 'react'
+import React, {createContext} from 'react';
 
-const TimerContext = createContext();
+export const TimerContext = createContext();
 
-export function useTimer () {
-  return useContext(TimerContext);
-}
+export class TimerProvider extends React.Component {
+  state = {
+    start: false,
+    hr: 0,
+    min: 0,
+    sec: 0,
+    ms: 0,
+  };
 
-export function TimerProvider({children}){
-  const [timer, setTimer] = useState({start: false, hr: 0, min: 0, sec: 0, ms: 0});
-  return (
-    <TimerContext.Provider value={{timer, setTimer}}>
-      {children}
-    </TimerContext.Provider>
-  )
+	render() {
+		return (
+			<TimerContext.Provider value={{timer: this.state, setTimer: this.setState}}>
+				{this.props.children}
+			</TimerContext.Provider>
+		);
+	}
 }
