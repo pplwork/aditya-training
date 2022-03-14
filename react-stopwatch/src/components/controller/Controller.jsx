@@ -30,6 +30,9 @@ export class Controller extends React.Component {
 	}
 
 	componentDidUpdate = () => {
+		if(this.startTimer){
+			clearInterval(this.startTimer);
+		}
 		this.startTimer = setInterval(() => {
 			if (!this.props.timer.start) return;
 
@@ -43,10 +46,6 @@ export class Controller extends React.Component {
 				this.props.setTimer(prev => ({...prev, ms: prev.ms + 1}));
 			else this.props.setTimer(prev => ({...prev, ms: 0, sec: prev.sec + 1}));
 		}, 100);
-	}
-
-	componentWillUnmount = () => {
-		clearInterval(this.startTimer);
 	}
 
 	render() {
