@@ -24,4 +24,6 @@ const mapStateToProps = (state) => ({
 	laps: state.laps,
 });
 
-export connect(mapStateToProps, {})(Laps);
+const laps = connect(mapStateToProps, null)(Laps);
+
+export { laps as Laps };

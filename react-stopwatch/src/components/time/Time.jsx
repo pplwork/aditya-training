@@ -23,4 +23,6 @@ const mapStateToProps = (state) => ({
 	timer: state.timer,
 });
 
-export connect(mapStateToProps, {})(Time);
+const time = connect(mapStateToProps, {})(Time);
+
+export {time as Time};
