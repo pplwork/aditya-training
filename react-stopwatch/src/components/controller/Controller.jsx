@@ -4,49 +4,44 @@ import './Controller.css';
 import {formatTime} from '../../utils';
 
 export class Controller extends React.Component {
-	startTimer = null;
-	timer = this.props.timer;
-	setTimer = this.props.setTimer;
-	laps = this.props.laps;
-	setLaps = this.props.setLaps;
 
 	start = () => {
-		this.setTimer({start: true});
+		this.props.setTimer({start: true});
 	}
 	stop = () => {
-		this.setTimer((prev) => ({...prev, start: false}));
+		this.props.setTimer({start: false});
 	}
 	restart = () => {
-		this.setTimer((prev) => ({...prev, hr: 0, min: 0, sec: 0, ms: 0}));
+		this.props.setTimer({hr: 0, min: 0, sec: 0, ms: 0});
 	}
 	lap = () => {
-		this.setLaps((prev) => [
+		this.props.setLaps((prev) => ({laps: [
 			`Lap ${
 				prev.laps.length ? formatTime(prev.laps.length + 1) : '01'
-			} - ${formatTime(this.timer.hr)}:${formatTime(
-				this.timer.min
-			)}:${formatTime(this.timer.sec)}:${formatTime(this.timer.ms)}`,
+			} - ${formatTime(this.props.timer.hr)}:${formatTime(
+				this.props.timer.min
+			)}:${formatTime(this.props.timer.sec)}:${formatTime(this.props.timer.ms)}`,
 			...prev.laps,
-		]);
+		]}));
 	}
 	reset = () => {
-		this.setTimer({start: false, hr: 0, min: 0, sec: 0, ms: 0});
-		this.setLaps({laps: []});
+		this.props.setTimer({start: false, hr: 0, min: 0, sec: 0, ms: 0});
+		this.props.setLaps({laps: []});
 	}
 
 	componentDidUpdate = () => {
 		this.startTimer = setInterval(() => {
-			if (!this.timer.start) return;
+			if (!this.props.timer.start) return;
 
-			if (this.timer.min === 60)
-				this.setTimer({min: 0, hr: this.timer.hr + 1});
+			if (this.props.timer.min === 60)
+				this.props.setTimer(prev => ({...prev, min: 0, hr: prev.hr + 1}));
 
-			if (this.timer.sec === 60)
-				this.setTimer({sec: 0, min: this.timer.min + 1});
+			if (this.props.timer.sec === 60)
+				this.props.setTimer(prev => ({...prev, sec: 0, min: prev.min + 1}));
 
-			if (this.timer.ms < 10)
-				this.setTimer({ms: this.timer.ms + 1});
-			else this.setTimer({ms: 0, sec: this.timer.sec + 1});
+			if (this.props.timer.ms < 10)
+				this.props.setTimer(prev => ({...prev, ms: prev.ms + 1}));
+			else this.props.setTimer(prev => ({...prev, ms: 0, sec: prev.sec + 1}));
 		}, 100);
 	}
 
@@ -57,16 +52,16 @@ export class Controller extends React.Component {
 	render() {
 		return (
 			<div className="controller">
-				<Button onClick={this.start} disabled={this.timer.start}>
+				<Button onClick={this.start} disabled={this.props.timer.start}>
 					Start
 				</Button>
-				<Button onClick={this.lap} disabled={!this.timer.start}>
+				<Button onClick={this.lap} disabled={!this.props.timer.start}>
 					Lap
 				</Button>
-				<Button onClick={this.stop} disabled={!this.timer.start}>
+				<Button onClick={this.stop} disabled={!this.props.timer.start}>
 					Stop
 				</Button>
-				<Button onClick={this.restart} disabled={!this.timer.start}>
+				<Button onClick={this.restart} disabled={!this.props.timer.start}>
 					Restart
 				</Button>
 				<Button onClick={this.reset}>Reset</Button>
