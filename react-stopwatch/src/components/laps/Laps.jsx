@@ -1,25 +1,27 @@
 import './Laps.css';
-import {LapContext} from '../../contexts';
+import {connect} from 'react-redux';
 import React from 'react';
 
-export class Laps extends React.Component {
+class Laps extends React.Component {
 	render() {
 		return (
-			<LapContext.Consumer>
-				{({laps}) => (
-					<ul className="Laps">
-						{laps.length ? (
-							laps.map((lap, i) => (
-								<li key={i + '-' + lap} className="Lap">
-									{lap}
-								</li>
-							))
-						) : (
-							<li className="Lap">No Laps</li>
-						)}
-					</ul>
+			<ul className="Laps">
+				{this.props.laps.length ? (
+					this.props.laps.map((lap, i) => (
+						<li key={i + '-' + lap} className="Lap">
+							{lap}
+						</li>
+					))
+				) : (
+					<li className="Lap">No Laps</li>
 				)}
-			</LapContext.Consumer>
+			</ul>
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	laps: state.laps,
+});
+
+export connect(mapStateToProps, {})(Laps);

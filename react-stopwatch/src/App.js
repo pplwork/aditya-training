@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import {Time, Laps, Controller} from './components';
 import React from 'react';
 import {TimerContext, LapContext} from './contexts';
