@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import {Time, Laps, Controller} from './components';
 
-function App() {
+const App:React.FC = ():JSX.Element => {
 	return (
 		<main className="App">
       <h1>Stop Watch</h1>

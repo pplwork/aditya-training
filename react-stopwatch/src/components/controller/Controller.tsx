@@ -2,12 +2,12 @@ import React, {useEffect} from 'react';
 import {Button} from '..';
 import './Controller.css'
 import { formatTime } from '../../utils';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector, useDispatch, RootStateOrAny} from 'react-redux';
 import { timerTypes, lapTypes } from '../../store';
 
-export function Controller() {
-	const timer = useSelector(state => state.timer);
-	const laps = useSelector(state => state.laps);
+export const Controller:React.FC = ():JSX.Element => {
+	const timer = useSelector((state:RootStateOrAny) => state.timer);
+	const laps = useSelector((state:RootStateOrAny) => state.laps);
 	const dispatch = useDispatch();
 
 	function start() {

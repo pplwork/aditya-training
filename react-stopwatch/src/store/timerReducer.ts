@@ -1,15 +1,29 @@
-export const timerTypes = {
-	START_TIMER: 'start_timer',
-	STOP_TIMER: 'stop_timer',
-	ADD_HR: 'add_hour',
-	ADD_MIN: 'add_minute',
-	ADD_SEC: 'add_second',
-	ADD_MS: 'add_milisecond',
-	RESET_TIMER: 'reset_timer',
-	RESTART_TIMER: 'restart_timer',
+export enum timerTypes {
+	START_TIMER = 'start_timer',
+	STOP_TIMER = 'stop_timer',
+	ADD_HR = 'add_hour',
+	ADD_MIN = 'add_minute',
+	ADD_SEC = 'add_second',
+	ADD_MS = 'add_milisecond',
+	RESET_TIMER = 'reset_timer',
+	RESTART_TIMER = 'restart_timer',
 };
 
-const initialState = {
+export interface ITimer {
+	state: {
+		start?: Boolean;
+		hr?: Number;
+		min?: Number;
+		sec?: Number;
+		ms?: Number;
+	};
+	action: {
+		type: timerTypes,
+		payload?: Number,
+	}
+}
+
+const initialState:ITimer["state"] = {
 	start: false,
 	hr: 0,
 	min: 0,
@@ -17,7 +31,7 @@ const initialState = {
 	ms: 0,
 };
 
-export function timerReducer(state = initialState, {type, payload}) {
+export function timerReducer(state:ITimer["state"] = initialState, {type, payload}:ITimer["action"]): ITimer["state"] {
 	switch (type) {
 		case timerTypes.START_TIMER:
 			return {
