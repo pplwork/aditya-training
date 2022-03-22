@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <form id="user-form">
+      <header class="header">
+        <h2 class="title">CREATE USER</h2>
+      </header>
+      <main class="main">
+        <div class="field">
+          <label class="field-label" for="email">EMAIL <span>*</span></label>
+          <input type="email" class="field-input" name="email" required id="form-email">
+          <span class="field-error" id="error-email"></span>
+        </div>
+        <div class="field">
+          <label class="field-label" for="password">PASSWORD <span>*</span></label>
+          <input type="password" class="field-input" name="password" required id="form-password">
+          <button id="toggle-password" type="button">Show</button>
+          <span class="field-error" id="error-password"></span>
+        </div>
+        <div class="field">
+          <label class="field-label" for="gender">GENDER <span>*</span></label>
+          <select class="field-select" name="gender" required id="form-gender">
+            <option selected>MALE</option>
+            <option>FEMALE</option>
+            <option>OTHER</option>
+          </select>
+          <span class="field-error" id="error-gender"></span>
+        </div>
+        <div class="field">
+          <label class="field-label" for="role">ROLE <span>*</span></label>
+          <span class="field-group">
+            <input type="radio" class="field-radio" name="role" value="Admin" id="form-role-admin"> ADMIN
+            <input type="radio" class="field-radio" name="role" value="User" checked id="form-role-user"> USER
+          </span>
+          <span class="field-error" id="error-role"></span>
+        </div>
+        <div class="field">
+          <label class="field-label" for="permission">PERMISSIONS <span>*</span></label>
+          <span class="field-group">
+            <input type="checkbox" class="field-check" name="permission" value="Read" checked id="form-permission-read"> READ
+            <input type="checkbox" class="field-check" name="permission" value="Write" id="form-permission-write"> WRITE
+            <input type="checkbox" class="field-check" name="permission" value="Delete" id="form-permission-delete"> DELETE
+            <input type="checkbox" class="field-check" name="permission" value="Share" id="form-permission-share"> SHARE
+          </span>
+          <span class="field-error" id="error-permission"></span>
+        </div>
+        <div class="field-info">* Required Field</div>
+      </main>
+      <footer class="footer">
+        <button type="reset" class="form-button">RESET</button>
+        <button type="submit" class="form-button btn-action">SUBMIT</button>
+      </footer>
+    </form>
+  </div>
+  <div class="confirm-modal hidden">
+    <div class="container">
+      <header class="header">
+        <h2 class="title">CONFIRM FORM</h2>
+      </header>
+      <main class="main">
+        <table id="confirm-table">
+        </table>
+      </main>
+      <footer class="footer">
+        <button class="modal-button" data-modalbutton="cancel">CANCEL</button>
+        <button class="modal-button btn-action" data-modalbutton="confirm">CONFIRM</button>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
