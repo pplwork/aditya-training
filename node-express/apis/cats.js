@@ -20,7 +20,7 @@ router
 			cats = Cats.filter(
 				(cat) =>
 					(name && cat.name.toLowerCase().startsWith(name.toLowerCase())) ||
-					(age != null && String(cat.age).startsWith(String(cat.age))) ||
+					(age != null && String(cat.age).startsWith(String(age))) ||
 					(breed && cat.breed.toLowerCase().startsWith(breed.toLowerCase()))
 			);
 		}
@@ -68,9 +68,9 @@ router
 
 		if (
 			(!body.name && !body.age && !body.breed) ||
-			!(body.name && 2 <= body.name.length && body.name.length <= 64) ||
-			!(body.age && 0 < Number(body.age) && Number(body.age) <= 40) ||
-			!(body.breed && 2 <= body.breed.length && body.breed.length <= 100)
+			!(body.name && (2 <= body.name.length && body.name.length <= 64)) ||
+			!(body.age && (0 < Number(body.age) && Number(body.age) <= 40)) ||
+			!(body.breed && (2 <= body.breed.length && body.breed.length <= 100))
 		)
 			return res.sendStatus(400);
 
