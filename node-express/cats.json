@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Leela",
+    "age": 3,
+    "breed": "Bhartiya"
+  },{
+    "id": 2,
+    "name": "Seela",
+    "age": 4,
+    "breed": "African"
+  },{
+    "id": 3,
+    "name": "Neela",
+    "age": 2.5,
+    "breed": "New Zealand"
+  }
+]
