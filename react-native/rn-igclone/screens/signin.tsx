@@ -9,9 +9,8 @@ import {RootStackParamList} from './start';
 type Props = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
 const SignIn: React.FC<Props> = ({navigation}): JSX.Element => {
-	const [signInUser, user, loading, error] =
+	const [signInUser, _user, _loading, error] =
 		useSignInWithEmailAndPassword(auth);
-  const [signInGoogle] = useSignInWithGoogle(auth);
 
 	const [email, setEmail] = useState('');
 	const [pass, setPass] = useState('');
@@ -27,8 +26,7 @@ const SignIn: React.FC<Props> = ({navigation}): JSX.Element => {
 			return;
 		}
 
-		let res = await signInUser(email.trim().toLowerCase(), pass.trim());
-		console.log(res);
+		await signInUser(email.trim().toLowerCase(), pass.trim());
 	};
 
 	return (
@@ -56,9 +54,6 @@ const SignIn: React.FC<Props> = ({navigation}): JSX.Element => {
 				</View>
 			</View>
 			<View style={styles.footer}>
-        <View>
-          <Button color="red" title="SignIn with Google" onPress={() => signInGoogle()} />
-        </View>
 				<Text style={styles.footerText}> OR </Text>
 				<Button
 					title='Register'

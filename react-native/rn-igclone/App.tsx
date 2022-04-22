@@ -11,14 +11,33 @@ import Activity from './screens/activity';
 import Profile from './screens/profile';
 import Reels from './screens/reels';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import {auth} from './firebase.config';
+import {useCollection} from 'react-firebase-hooks/firestore';
+import {db, auth} from './firebase.config';
 import {signOut} from 'firebase/auth';
+import {useEffect} from 'react';
+import {addDoc, collection} from 'firebase/firestore';
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
 const App: React.FC = (): JSX.Element => {
 	const [user, loading, error] = useAuthState(auth);
+	const [accounts] = useCollection(collection(db, 'accounts'));
+
+	useEffect(() => {
+		if (!user) return;
+		let exists = accounts?.docs.find((doc) => doc.data().email === user?.email);
+		if (exists) return;
+
+		addDoc(collection(db, 'accounts'), {
+			name: user?.displayName ?? '',
+			email: user?.email ?? '',
+			phone: user?.phoneNumber ?? '',
+			avatar: user?.photoURL ?? '',
+			uid: user?.uid ?? '',
+		});
+	}, [user]);
+
 	return (
 		<NavigationContainer>
 			{!user && (
@@ -40,8 +59,12 @@ const App: React.FC = (): JSX.Element => {
 						component={Home}
 						options={{
 							headerRight: () => (
-								<Button title='SignOut' onPress={() => signOut(auth)} />
+								<View style={{flexDirection: "row"}}>
+									<Button title='New Post' onPress={() => {}} />
+									<Button color="red" title='SignOut' onPress={() => signOut(auth)} />
+								</View>
 							),
+							headerTitle: "IgClone"
 						}}
 					/>
 					<BottomTab.Screen name='Explore' component={Explore} />

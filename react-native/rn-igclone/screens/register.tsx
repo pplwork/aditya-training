@@ -9,7 +9,7 @@ import {auth} from '../firebase.config';
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 const Register: React.FC<Props> = ({navigation}): JSX.Element => {
-	const [createUser, user, loading, error] =
+	const [createUser, _user, _loading, error] =
 		useCreateUserWithEmailAndPassword(auth);
 
 	const [email, setEmail] = useState('');
@@ -37,13 +37,16 @@ const Register: React.FC<Props> = ({navigation}): JSX.Element => {
 		if (pass.trim() !== pass2.trim()) setPass2Error('Password do not matches!');
 
 		if (emailError || passError || pass2Error) return;
+		
+		setEmailError("");
+		setPassError("");
+		setPass2Error("");
 
-		let res = await createUser(email.trim().toLowerCase(), pass.trim());
-		console.log(res);
+		await createUser(email.trim().toLowerCase(), pass.trim());
 	};
 
 	return (
-		<View style={styles.container}>
+		<View style={styles.container}>         
 			<Text style={styles.title}>Register</Text>
 			<View style={styles.inputContainer}>
         <Text style={styles.errorText}>{error?.message}</Text>
