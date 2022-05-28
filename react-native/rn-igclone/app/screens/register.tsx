@@ -1,26 +1,22 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
-import Input from '../components/Input';
-import {RootStackParamList} from './start';
-import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth';
-import {auth} from '../firebase.config';
+import Input from 'app/components/Input';
+import {useDispatch, useSelector, register} from 'app/redux';
+import {RegisterProps} from 'app/types/props';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
+const Register: React.FC<RegisterProps> = ({navigation}): JSX.Element => {
+	const {loading, error} = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 
-const Register: React.FC<Props> = ({navigation}): JSX.Element => {
-	const [createUser, _user, _loading, error] =
-		useCreateUserWithEmailAndPassword(auth);
-
-	const [email, setEmail] = useState('');
-	const [pass, setPass] = useState('');
-	const [pass2, setPass2] = useState('');
+	const [email, setEmail] = useState<string>('');
+	const [pass, setPass] = useState<string>('');
+	const [pass2, setPass2] = useState<string>('');
 
 	const [emailError, setEmailError] = useState<string | null>(null);
 	const [passError, setPassError] = useState<string | null>(null);
 	const [pass2Error, setPass2Error] = useState<string | null>(null);
 
-	const register = async () => {
+	const handleRegister = () => {
 		if (
 			!email.trim() ||
 			!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.trim())
@@ -37,19 +33,21 @@ const Register: React.FC<Props> = ({navigation}): JSX.Element => {
 		if (pass.trim() !== pass2.trim()) setPass2Error('Password do not matches!');
 
 		if (emailError || passError || pass2Error) return;
-		
-		setEmailError("");
-		setPassError("");
-		setPass2Error("");
 
-		await createUser(email.trim().toLowerCase(), pass.trim());
+		setEmailError('');
+		setPassError('');
+		setPass2Error('');
+
+		dispatch(
+			register({email: email.trim().toLowerCase(), password: pass.trim()})
+		);
 	};
 
 	return (
-		<View style={styles.container}>         
+		<View style={styles.container}>
 			<Text style={styles.title}>Register</Text>
 			<View style={styles.inputContainer}>
-        <Text style={styles.errorText}>{error?.message}</Text>
+				<Text style={styles.errorText}>{error?.message}</Text>
 				<Input
 					placeholder='Email Address'
 					textContentType='emailAddress'
@@ -75,7 +73,7 @@ const Register: React.FC<Props> = ({navigation}): JSX.Element => {
 				/>
 				<Text style={styles.errorText}>{pass2Error}</Text>
 				<View style={styles.register}>
-					<Button title='Create Account' onPress={register} />
+					<Button title='Create Account' onPress={handleRegister} />
 				</View>
 			</View>
 			<View style={styles.footer}>

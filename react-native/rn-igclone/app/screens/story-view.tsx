@@ -1,12 +1,12 @@
 import React from "react";
 import {View, Text} from 'react-native';
 
-const Profile: React.FC = (): JSX.Element => {
+const StoryView: React.FC = (): JSX.Element => {
   return (
     <View>
-      <Text>Profile</Text>
+      <Text>Story View</Text>
     </View>
   )
 }
 
-export default Profile;
+export default StoryView;

@@ -1,16 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {StartProps} from 'app/types/props';
 
-export type RootStackParamList = {
-	Start: undefined;
-	Register: undefined;
-	SignIn: undefined;
-};
-
-type Props = NativeStackScreenProps<RootStackParamList, 'Start'>;
-
-const Start: React.FC<Props> = ({navigation}): JSX.Element => {
+const Start: React.FC<StartProps> = ({navigation}): JSX.Element => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>IGCLONE</Text>

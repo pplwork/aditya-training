@@ -1,23 +1,19 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {useSignInWithEmailAndPassword, useSignInWithGoogle} from 'react-firebase-hooks/auth';
 import {View, Text, StyleSheet, Button} from 'react-native';
-import Input from '../components/Input';
-import {auth} from '../firebase.config';
-import {RootStackParamList} from './start';
+import Input from 'app/components/Input';
+import { useDispatch, useSelector, signIn } from 'app/redux';
+import { SignInProps } from 'app/types/props';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
+const SignIn: React.FC<SignInProps> = ({navigation}): JSX.Element => {
+	const {loading, error} = useSelector(state => state.auth);
+	const dispatch = useDispatch();
 
-const SignIn: React.FC<Props> = ({navigation}): JSX.Element => {
-	const [signInUser, _user, _loading, error] =
-		useSignInWithEmailAndPassword(auth);
-
-	const [email, setEmail] = useState('');
-	const [pass, setPass] = useState('');
+	const [email, setEmail] = useState<string>('');
+	const [pass, setPass] = useState<string>('');
 
 	const [emailError, setEmailError] = useState<string | null>(null);
 
-	const signIn = async () => {
+	const handleSignIn = () => {
 		if (
 			!email.trim() ||
 			!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.trim())
@@ -26,7 +22,7 @@ const SignIn: React.FC<Props> = ({navigation}): JSX.Element => {
 			return;
 		}
 
-		await signInUser(email.trim().toLowerCase(), pass.trim());
+		dispatch(signIn({email: email.trim().toLowerCase(), password: pass.trim()}));
 	};
 
 	return (
@@ -50,7 +46,7 @@ const SignIn: React.FC<Props> = ({navigation}): JSX.Element => {
 					style={styles.input}
 				/>
 				<View style={styles.register}>
-					<Button title='Sign In' onPress={signIn} />
+					<Button title='Sign In' onPress={handleSignIn} />
 				</View>
 			</View>
 			<View style={styles.footer}>
