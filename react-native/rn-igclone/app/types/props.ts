@@ -31,9 +31,12 @@ export type DropDownProps = {
 		title: string;
 		data: DropDownOptionProps[];
 	}[];
-	style?: object;
+	dropdownStyle?: object;
 	onSelect: (item: DropDownOptionProps) => void;
 	optionStyle?: object;
+	headerStyle?: object;
+	onClose: () => void;
+	open: boolean;
 };
 
 export type InputProps = TextInputProps & {
@@ -67,7 +70,29 @@ export type LoadingProps = {
 	loading: boolean;
 }
 
+export enum PostType {
+	POST = 'NewPost',
+	STORY = 'NewStory',
+	REEL = 'NewReel',
+	IGTV = 'NewIgtv',
+}
+
+export type ImageIconProps = {
+	imageUri?: string;
+	imageStyle?: object;
+	buttonStyle?: object;
+	iconName?: string;
+	iconColor?: string;
+	iconSize?: number;
+	iconStyle?: object;
+	label?: string;
+	labelStyle?: object;
+	onPress: () => void;
+};
+
 export type StoryViewProp = NativeStackNavigationProp<HomeStackParamList, 'StoryView'>;
+
+export type HomeStackUseNavProps = NativeStackNavigationProp<HomeStackParamList, PostType.IGTV | PostType.POST | PostType.REEL | PostType.STORY>;
 
 export type StartProps = NativeStackScreenProps<AuthStackParamList, 'Start'>;
 

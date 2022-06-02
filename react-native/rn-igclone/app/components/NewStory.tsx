@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewStory;
+export default React.memo(NewStory);

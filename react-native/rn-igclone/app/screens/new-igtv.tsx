@@ -1,12 +1,12 @@
 import React from "react";
 import {View, Text} from 'react-native';
 
-const NewPost: React.FC = (): JSX.Element => {
+const NewIgtv: React.FC = (): JSX.Element => {
   return (
     <View>
-      <Text>NewPost</Text>
+      <Text>NewIgtv</Text>
     </View>
   )
 }
 
-export default NewPost;
+export default React.memo(NewIgtv);

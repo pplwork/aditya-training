@@ -143,15 +143,48 @@ export default {
 			thumbnail: 'https://source.unsplash.com/random',
 			id: '6',
 		},
+		{
+			thumbnail: 'https://source.unsplash.com/random',
+			id: '7',
+		},
+		{
+			thumbnail: 'https://source.unsplash.com/random',
+			id: '8',
+		},
+		{
+			thumbnail: 'https://source.unsplash.com/random',
+			id: '9',
+		},
+		{
+			thumbnail: 'https://source.unsplash.com/random',
+			id: '10',
+		},
+		{
+			thumbnail: 'https://source.unsplash.com/random',
+			id: '11',
+		},
+		{
+			thumbnail: 'https://source.unsplash.com/random',
+			id: '12',
+		},
 	],
 	addNewDropDownList: [
 		{
 			title: 'Add New',
 			data: [
-				{title: 'post', icon: 'image-outline'},
-				{title: 'reel', icon: 'play-box-multiple-outline'},
-				{title: 'igtv', icon: 'presentation-play'},
-				{title: 'story', icon: 'shape-circle-plus'},
+				{title: 'Post', icon: 'image-outline'},
+				{title: 'Reel', icon: 'play-box-multiple-outline'},
+				{title: 'Igtv', icon: 'presentation-play'},
+				{title: 'Story', icon: 'shape-circle-plus'},
+			],
+		},
+	],
+	uploadOptionList: [
+		{
+			title: 'Choose Option',
+			data: [
+				{title: 'Open Camera', icon: 'camera-outline'},
+				{title: 'Pick From Device', icon: 'file-upload-outline'},
 			],
 		},
 	],

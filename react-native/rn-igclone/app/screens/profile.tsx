@@ -6,6 +6,7 @@ import {
 	StyleSheet,
 	SafeAreaView,
 	TouchableOpacity,
+	ScrollView,
 } from 'react-native';
 import Stories from 'app/components/Stories';
 import mock from 'app/mock';

@@ -1,12 +1,12 @@
 import React from "react";
 import {View, Text} from 'react-native';
 
-const StoryView: React.FC = (): JSX.Element => {
+const NewStory: React.FC = (): JSX.Element => {
   return (
     <View>
-      <Text>Story View</Text>
+      <Text>NewStory</Text>
     </View>
   )
 }
 
-export default React.memo(StoryView);
+export default React.memo(NewStory);

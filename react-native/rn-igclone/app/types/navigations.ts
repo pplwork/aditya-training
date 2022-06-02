@@ -7,10 +7,13 @@ export type AuthStackParamList = {
 export type HomeStackParamList = {
 	Home: undefined;
 	StoryView: undefined;
-	CreatePost: undefined;
-}
+	NewPost: undefined;
+	NewReel: undefined;
+	NewStory: undefined;
+	NewIgtv: undefined;
+};
 
 export type ProfileStackParamList = {
 	Profile: undefined;
 	EditProfile: undefined;
-}
+};

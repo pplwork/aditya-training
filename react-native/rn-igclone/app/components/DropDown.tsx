@@ -1,63 +1,91 @@
-import {SafeAreaView, StyleSheet, SectionList, Text, Platform} from 'react-native';
+import {StyleSheet, SectionList, Text, Modal, TouchableWithoutFeedback, View} from 'react-native';
 import React from 'react';
 import ButtonIcon from './ButtonIcon';
-import {DropDownProps} from 'app/types/props'
+import {DropDownProps} from 'app/types/props';
 
-const DropDown: React.FC<DropDownProps> = ({options, style, onSelect}): JSX.Element => {
+const DropDown: React.FC<DropDownProps> = ({
+	options,
+	dropdownStyle,
+	onSelect,
+	optionStyle,
+	headerStyle,
+	open,
+	onClose,
+}): JSX.Element => {
 	return (
-		<SafeAreaView style={{...styles.picker, ...style}}>
-			<SectionList
-				sections={options}
-				keyExtractor={(item) => item.title}
-				renderItem={({item}) => (
-					<ButtonIcon
-						style={styles.item}
-						titleStyle={styles.itemContent}
-						onPress={() => onSelect(item)}
-						iconName={item.icon}
-						iconColor='black'
-						iconSize={24}
-						title={item.title}
-					/>
-				)}
-				renderSectionHeader={({section: {title}}) => (
-					<Text style={styles.header}>{title}</Text>
-				)}
-			/>
-		</SafeAreaView>
+		<Modal
+			animationType='slide'
+			transparent
+			visible={open}
+			onRequestClose={onClose}
+		>
+			<TouchableWithoutFeedback
+				style={styles.dismiss}
+				onPress={onClose}
+			>
+				<View style={styles.overlay}></View>
+			</TouchableWithoutFeedback>
+			<View style={{...styles.picker, ...dropdownStyle}}>
+				<SectionList
+					sections={options}
+					keyExtractor={(item) => item.title}
+					renderItem={({item}) => (
+						<ButtonIcon
+							style={{...styles.item, ...optionStyle}}
+							titleStyle={styles.itemContent}
+							onPress={() => onSelect(item)}
+							iconName={item.icon}
+							iconColor='black'
+							iconSize={24}
+							title={item.title}
+						/>
+					)}
+					renderSectionHeader={({section: {title}}) => (
+						<Text style={{...styles.header, ...headerStyle}}>{title}</Text>
+					)}
+				/>
+			</View>
+		</Modal>
 	);
 };
 
 const styles = StyleSheet.create({
 	picker: {
-		zIndex: 20,
-    elevation: (Platform.OS === 'android') ? 20 : 0,
-		height: 190,
 		width: '50%',
 		paddingVertical: 2,
 		backgroundColor: '#DDD',
-		flex: 1,
-		position: 'absolute',
-		top: 51,
-		right: 0,
+		alignSelf: 'center',
 	},
 	header: {
 		fontSize: 16,
 		textAlign: 'center',
-    marginBottom: 5
+		marginBottom: 5,
 	},
 	item: {
-    marginVertical: 0,
+		marginVertical: 0,
 		flexDirection: 'row-reverse',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-    borderTopWidth: 2,
-    borderColor: 'gray',
-    padding: 5
+		borderTopWidth: 2,
+		borderColor: 'gray',
+		padding: 5,
 	},
 	itemContent: {
 		fontSize: 20,
 		textTransform: 'capitalize',
+		margin: 5,
+	},
+	dismiss: {
+		flex: 1,
+		backgroundColor: 'red',
+		height: '50%',
+		width: '100%',
+		overflow: 'hidden',
+	},
+	overlay: {
+		width: '100%',
+		flex: 1,
+		backgroundColor: '#000a',
 	},
 });
 

@@ -26,8 +26,7 @@ const AuthBottomTabNav: React.FC = (): JSX.Element => {
 				name='HomeNav'
 				component={HomeStack}
 				options={{
-					headerRight: () => <HeaderRight />,
-					headerTitle: 'IgClone',
+					headerShown: false,
 					tabBarIcon: ({color}) => (
 						<MaterialCommunityIcons
 							name='home-circle'

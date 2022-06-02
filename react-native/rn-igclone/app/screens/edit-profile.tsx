@@ -1,23 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
 	StyleSheet,
 	Text,
-	Image,
 	View,
 	Button,
-	TouchableOpacity,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import * as ImagePicker from 'expo-image-picker';
 import {uploadFile} from 'app/utils';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector, updateProfile, hydrateUser} from 'app/redux';
 import Input from 'app/components/Input';
-import { EditProfileProps } from 'app/types/props';
+import {EditProfileProps} from 'app/types/props';
+import ImageIcon from 'app/components/ImageIcon';
 
 const EditProfile: React.FC<EditProfileProps> = ({navigation}): JSX.Element => {
 	const {user} = useSelector((state) => state.auth);
-	const {about} = useSelector(state => state.profile);
+	const {about} = useSelector((state) => state.profile);
 	const dispatch = useDispatch();
 
 	const [avatar, setAvatar] = useState<string>(user?.avatar ?? '');
@@ -29,9 +27,9 @@ const EditProfile: React.FC<EditProfileProps> = ({navigation}): JSX.Element => {
 
 	const saveProfile = async () => {
 		if (!user) return;
-		let url = ''
-		if(avatar && avatar !== user?.avatar) {
-			url = await uploadFile(avatar, "avatar");
+		let url = '';
+		if (avatar && avatar !== user?.avatar) {
+			url = await uploadFile(avatar, 'avatar');
 		}
 		const userProfile = {
 			name: name ? name : user.name,
@@ -47,7 +45,7 @@ const EditProfile: React.FC<EditProfileProps> = ({navigation}): JSX.Element => {
 		dispatch(updateProfile(userProfile));
 
 		dispatch(hydrateUser(userProfile));
-		navigation.navigate("Profile");
+		navigation.navigate('Profile');
 	};
 
 	const pickImage = async () => {
@@ -77,19 +75,13 @@ const EditProfile: React.FC<EditProfileProps> = ({navigation}): JSX.Element => {
 		>
 			<Text style={styles.title}>Complete Your Profile</Text>
 			<View style={styles.avatarContainer}>
-				<TouchableOpacity style={styles.chooseAvatar} onPress={pickImage}>
-					{avatar ? (
-						<Image source={{uri: avatar}} style={styles.avatar} />
-					) : (
-						<MaterialCommunityIcon
-							style={styles.avatarIcon}
-							name='account-circle'
-							color='#000a'
-							size={100}
-						/>
-					)}
-					<Text style={styles.chooseText}>Choose</Text>
-				</TouchableOpacity>
+				<ImageIcon
+					buttonStyle={styles.chooseAvatar}
+					imageUri={avatar}
+					imageStyle={styles.avatar}
+					onPress={pickImage}
+					iconName='account-circle'
+				/>
 				<Text style={styles.label}>Your Avatar</Text>
 			</View>
 			<View style={styles.fields}>
@@ -203,6 +195,7 @@ const styles = StyleSheet.create({
 	save: {
 		flex: 1,
 		justifyContent: 'flex-end',
+		marginBottom: 25,
 	},
 });
 
