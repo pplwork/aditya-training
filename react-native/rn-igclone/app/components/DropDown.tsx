@@ -51,7 +51,7 @@ const DropDown: React.FC<DropDownProps> = ({
 
 const styles = StyleSheet.create({
 	picker: {
-		width: '50%',
+		width: '100%',
 		paddingVertical: 2,
 		backgroundColor: '#DDD',
 		alignSelf: 'center',

@@ -1,8 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {
-	View,
-	StyleSheet,
-} from 'react-native';
+import {StyleSheet, SafeAreaView, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {signOut, useDispatch} from 'app/redux';
@@ -12,19 +9,21 @@ import ButtonIcon from './ButtonIcon';
 import DropDown from './DropDown';
 
 import mock from 'app/mock';
+import { HomeStackParamList } from 'app/types/navigations';
 
 const HeaderRight = () => {
 	const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
 	const navigation = useNavigation<HomeStackUseNavProps>();
 
-	const handleSelect = useCallback(async (item: DropDownOptionProps) => {
+	const handleSelect = useCallback((item: DropDownOptionProps) => {
 		setOpen(false);
-		navigation.navigate(item.title);
+		const option = `New${item.title}` as keyof HomeStackParamList
+		navigation.navigate(option);
 	}, []);
 
 	return (
-		<View style={{flexDirection: 'row', position: 'relative'}}>
+		<SafeAreaView style={styles.header}>
 			<ButtonIcon
 				iconName='plus-box-outline'
 				iconColor='black'
@@ -48,18 +47,18 @@ const HeaderRight = () => {
 					onClose={() => setOpen(false)}
 				/>
 			</View>
-		</View>
+		</SafeAreaView>
 	);
 };
 
 const styles = StyleSheet.create({
+	header: {
+		flexDirection: 'row',
+	},
 	dropdownView: {
-		flex: 1,
 		position: 'relative',
 	},
 	dropdown: {
-		width: '100%',
-		height: '100%',
 		position: 'absolute',
 		bottom: 0,
 	},

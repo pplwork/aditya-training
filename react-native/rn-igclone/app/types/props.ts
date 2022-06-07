@@ -70,13 +70,6 @@ export type LoadingProps = {
 	loading: boolean;
 }
 
-export enum PostType {
-	POST = 'NewPost',
-	STORY = 'NewStory',
-	REEL = 'NewReel',
-	IGTV = 'NewIgtv',
-}
-
 export type ImageIconProps = {
 	imageUri?: string;
 	imageStyle?: object;
@@ -92,7 +85,7 @@ export type ImageIconProps = {
 
 export type StoryViewProp = NativeStackNavigationProp<HomeStackParamList, 'StoryView'>;
 
-export type HomeStackUseNavProps = NativeStackNavigationProp<HomeStackParamList, PostType.IGTV | PostType.POST | PostType.REEL | PostType.STORY>;
+export type HomeStackUseNavProps = NativeStackNavigationProp<HomeStackParamList>;
 
 export type StartProps = NativeStackScreenProps<AuthStackParamList, 'Start'>;
 

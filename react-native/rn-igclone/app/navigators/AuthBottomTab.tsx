@@ -75,7 +75,7 @@ const AuthBottomTabNav: React.FC = (): JSX.Element => {
 				name='ProfileNav'
 				component={ProfileStack}
 				options={{
-					header: () => null,
+					headerShown: false,
 					tabBarIcon: ({color}) => (
 						<MaterialCommunityIcons
 							name='account-circle'

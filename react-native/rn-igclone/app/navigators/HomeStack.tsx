@@ -17,6 +17,7 @@ const HomeStackNav = () => {
 		<Stack.Navigator
 			initialRouteName='Home'
 			screenOptions={{
+				title: 'IgClone',
 				headerRight: () => <HeaderRight />,
 			}}
 		>
