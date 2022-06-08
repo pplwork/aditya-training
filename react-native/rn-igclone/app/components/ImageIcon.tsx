@@ -1,4 +1,4 @@
-import { ImageIconProps } from 'app/types/props';
+import {ImageIconProps} from 'app/types/props';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -33,7 +33,9 @@ const ImageIcon: React.FC<ImageIconProps> = ({
 					size={iconSize ?? 100}
 				/>
 			)}
-			<Text style={{...styles.label, ...labelStyle}}>{label ?? 'Choose'}</Text>
+			{label ? (
+				<Text style={{...styles.label, ...labelStyle}}>{label}</Text>
+			) : null}
 		</TouchableOpacity>
 	);
 };
@@ -43,27 +45,27 @@ const styles = StyleSheet.create({
 		position: 'relative',
 		overflow: 'hidden',
 		backgroundColor: 'white',
-  },
+	},
 	image: {
-    width: '100%',
+		width: '100%',
 		height: '100%',
-  },
+	},
 	icon: {
-    borderWidth: 1,
+		borderWidth: 1,
 		borderColor: '#000a',
 		textAlign: 'center',
-  },
+	},
 	label: {
-    position: 'absolute',
-    bottom: 0,
-    backgroundColor: '#000a',
-    color: 'white',
-    width: '100%',
-    textAlign: 'center',
-    paddingVertical: 3,
-    textTransform: 'uppercase',
-    fontSize: 10,
-  },
+		position: 'absolute',
+		bottom: 0,
+		backgroundColor: '#000a',
+		color: 'white',
+		width: '100%',
+		textAlign: 'center',
+		paddingVertical: 3,
+		textTransform: 'uppercase',
+		fontSize: 10,
+	},
 });
 
 export default React.memo(ImageIcon);

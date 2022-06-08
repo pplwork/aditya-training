@@ -34,26 +34,21 @@ const createPost = createAsyncThunk(
 	}
 );
 
+const getPosts = createAsyncThunk('posts/getPosts', async () => {
+	const res = await getDocs(query(collection(db, `posts`)));
+	const posts = res.docs.map(snap => ({
+		id: snap.id,
+		...snap.data({serverTimestamps: 'estimate'}),
+		timestamp: (new Date(snap.get('timestamp').seconds)).toUTCString()
+	}) as Post);
+	return posts;
+});
+
 const updatePost = createAsyncThunk(
 	'posts/updatePost',
-	async ({postUri, caption, description, user, id}: Post) => {
-		try {
-			let post = {
-				postUri,
-				caption,
-				description,
-				commentCount: 0,
-				likeCount: 0,
-				seenCount: 0,
-				user,
-				timestamp: serverTimestamp(),
-			};
-			await updateDoc(doc(db, `posts/${id}`), post);
-			return {...post, id, timestamp: new Date()};
-		} catch (err) {
-			console.log(err);
-			return;
-		}
+	async ({id, ...rest}: Post) => {
+		await updateDoc(doc(db, `posts/${id}`), {...rest});
+		return {...rest, id};
 	}
 );
 
@@ -91,4 +86,4 @@ const getPostComments = createAsyncThunk(
 	}
 );
 
-export {createPost, getPostComments, getPostLikes, updatePost};
+export {createPost, getPosts, getPostComments, getPostLikes, updatePost};

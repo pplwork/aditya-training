@@ -81,6 +81,7 @@ const EditProfile: React.FC<EditProfileProps> = ({navigation}): JSX.Element => {
 					imageStyle={styles.avatar}
 					onPress={pickImage}
 					iconName='account-circle'
+					label='Choose'
 				/>
 				<Text style={styles.label}>Your Avatar</Text>
 			</View>

@@ -1,19 +1,34 @@
-import React from 'react';
-import {View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import Posts from 'app/components/Posts';
+import React, { useEffect } from 'react';
+import {View, StyleSheet, SafeAreaView, FlatList, Text} from 'react-native';
 import Stories from 'app/components/Stories';
 import mock from 'app/mock';
 import { Size } from 'app/types/props';
+import { getPosts, useDispatch, useSelector } from 'app/redux';
+import Post from 'app/components/Post';
+import EmptyList from 'app/components/EmptyList';
 
 const Home: React.FC = (): JSX.Element => {
+	const {posts, loading} = useSelector(state => state.posts);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getPosts());
+	}, []);
+
 	return (
 		<SafeAreaView style={styles.container}>
-				<View style={styles.stories}>
-					<Stories stories={mock.stories} size={Size.sm} header />
-				</View>
-				<View style={styles.posts}>
-					<Posts posts={mock.posts} />
-				</View>
+			<View style={styles.stories}>
+				<Stories stories={mock.stories} size={Size.sm} header />
+			</View>
+			<View style={styles.posts}>
+				<FlatList
+					style={styles.list}
+					keyExtractor={(item) => item.id}
+					data={posts}
+					renderItem={({item}) => <Post post={item} />}
+					ListEmptyComponent={() => <EmptyList />}
+				/>
+			</View>
 		</SafeAreaView>
 	);
 };
@@ -31,6 +46,9 @@ const styles = StyleSheet.create({
 		padding: 2,
 		flex: 1,
 	},
+	list: {
+    padding: 2
+  },
 });
 
 export default React.memo(Home);

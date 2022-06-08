@@ -1,6 +1,7 @@
 import {NativeStackNavigationProp, NativeStackScreenProps} from '@react-navigation/native-stack';
 import { TextInputProps } from 'react-native';
 import {AuthStackParamList, HomeStackParamList, ProfileStackParamList} from './navigations';
+import { Post } from './redux';
 
 export type ProfileTabListProps = {
 	list: {
@@ -82,6 +83,10 @@ export type ImageIconProps = {
 	labelStyle?: object;
 	onPress: () => void;
 };
+
+export type PostProps = {
+	post: Post;
+}
 
 export type StoryViewProp = NativeStackNavigationProp<HomeStackParamList, 'StoryView'>;
 

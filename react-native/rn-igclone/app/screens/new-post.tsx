@@ -68,6 +68,7 @@ const NewPost: React.FC<NewPostProps> = ({navigation}): JSX.Element => {
 						iconStyle={styles.postIcon}
 						iconName='image-outline'
 						onPress={() => setChooseOptions(true)}
+						label='Choose'
 					/>
 				</View>
 				<Input

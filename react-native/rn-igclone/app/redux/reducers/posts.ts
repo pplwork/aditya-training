@@ -1,6 +1,6 @@
 import {createSlice, Slice} from '@reduxjs/toolkit';
 import {
-  createPost, getPostComments, getPostLikes
+  createPost, getPostComments, getPostLikes, getPosts, updatePost
 } from '../actions/posts';
 import type {PostsInitialState} from 'app/types/redux';
 
@@ -27,6 +27,34 @@ const posts: Slice<PostsInitialState> = createSlice({
       state.error = null;
     })
     .addCase(createPost.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
+    .addCase(getPosts.pending, (state, _action) => {
+      state.loading = true;
+    })
+    .addCase(getPosts.fulfilled, (state, action) => {
+      state.posts  = action.payload;
+      state.loading = false
+      state.error = null;
+    })
+    .addCase(getPosts.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
+    .addCase(updatePost.pending, (state, _action) => {
+      state.loading = true;
+    })
+    .addCase(updatePost.fulfilled, (state, action) => {
+      const index = state.posts.findIndex(post => post.id === action.payload?.id)
+      if(index > -1)
+        state.posts[index] = {
+          ...state.posts[index], ...action.payload
+        }
+      state.loading = false
+      state.error = null;
+    })
+    .addCase(updatePost.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     })
