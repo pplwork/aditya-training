@@ -5,17 +5,52 @@ import Input from 'app/components/Input';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DropDown from 'app/components/DropDown';
 import mock from 'app/mock';
-import { DropDownOptionProps } from 'app/types/props';
+import {DropDownOptionProps, NewPostProps} from 'app/types/props';
+import {openCamera, pickFromDevice, uploadFile} from 'app/utils';
+import {ImagePickerResult, MediaTypeOptions} from 'expo-image-picker';
+import {useDispatch, createPost, useSelector} from 'app/redux';
 
-const NewPost: React.FC = (): JSX.Element => {
+const NewPost: React.FC<NewPostProps> = ({navigation}): JSX.Element => {
 	const [postUri, setPostUri] = useState<string>('');
 	const [postTitle, setPostTitle] = useState<string>('');
 	const [postDescription, setPostDescription] = useState<string>('');
 	const [chooseOptions, setChooseOptions] = useState<boolean>(false);
+	const {user} = useSelector(state => state.auth);
 
-	const createPost = async () => {};
-	const handleSelect = (option: DropDownOptionProps) => {
-		
+	const dispatch = useDispatch();
+
+	const handleCreatePost = async () => {
+		console.log(postUri, postTitle, postDescription)
+		// TODO: dispatch create post.
+		if(!postUri) return;
+		const uri = await uploadFile(postUri, 'posts');
+		dispatch(createPost({
+			postUri: uri,
+			caption: postTitle,
+			description: postDescription,
+			user: {
+				avatar: user?.avatar,
+				id: user?.id,
+				username: user?.username,
+				uid: user?.uid,
+			},
+		}));
+		setPostTitle('');
+		setPostDescription('');
+		setPostUri('');
+		navigation.navigate('Home');
+	};
+	const handleSelect = async (option: DropDownOptionProps) => {
+		setChooseOptions(false);
+		let result: ImagePickerResult | undefined;
+
+		if (option.title === 'Open Camera')
+			result = await openCamera(MediaTypeOptions.All, [1, 1]);
+		else result = await pickFromDevice(MediaTypeOptions.All, [1, 1]);
+
+		if (!result || result.cancelled) return;
+
+		setPostUri(result.uri);
 	};
 
 	return (
@@ -50,7 +85,7 @@ const NewPost: React.FC = (): JSX.Element => {
 				/>
 				<View style={styles.footer}>
 					<View style={styles.createButton}>
-						<Button title='Create Post' onPress={createPost} />
+						<Button title='Create Post' onPress={handleCreatePost} />
 					</View>
 				</View>
 			</KeyboardAwareScrollView>
@@ -94,7 +129,6 @@ const styles = StyleSheet.create({
 	createButton: {},
 	dropdown: {},
 	option: {},
-
 });
 
 export default React.memo(NewPost);

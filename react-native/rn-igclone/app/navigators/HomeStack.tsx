@@ -9,25 +9,31 @@ import HeaderRight from 'app/components/HeaderRight';
 import NewReel from 'app/screens/new-reel';
 import NewStory from 'app/screens/new-story';
 import NewIgtv from 'app/screens/new-igtv';
+import {useSelector} from 'app/redux';
+import Loading from 'app/components/Loading';
 
 const Stack = createNativeStackNavigator();
 
 const HomeStackNav = () => {
+	const {posts} = useSelector((state) => state);
 	return (
-		<Stack.Navigator
-			initialRouteName='Home'
-			screenOptions={{
-				title: 'IgClone',
-				headerRight: () => <HeaderRight />,
-			}}
-		>
-			<Stack.Screen name='Home' component={Home} />
-			<Stack.Screen name='Story' component={StoryView} />
-			<Stack.Screen name='NewPost' component={NewPost} />
-			<Stack.Screen name='NewReel' component={NewReel} />
-			<Stack.Screen name='NewIgtv' component={NewIgtv} />
-			<Stack.Screen name='NewStory' component={NewStory} />
-		</Stack.Navigator>
+		<>
+			<Loading loading={posts.loading} />
+			<Stack.Navigator
+				initialRouteName='Home'
+				screenOptions={{
+					title: 'IgClone',
+					headerRight: () => <HeaderRight />,
+				}}
+			>
+				<Stack.Screen name='Home' component={Home} />
+				<Stack.Screen name='Story' component={StoryView} />
+				<Stack.Screen name='NewPost' component={NewPost} />
+				<Stack.Screen name='NewReel' component={NewReel} />
+				<Stack.Screen name='NewIgtv' component={NewIgtv} />
+				<Stack.Screen name='NewStory' component={NewStory} />
+			</Stack.Navigator>
+		</>
 	);
 };
 

@@ -96,3 +96,5 @@ export type RegisterProps = NativeStackScreenProps<AuthStackParamList, 'Register
 export type ProfileProps = NativeStackScreenProps<ProfileStackParamList, 'Profile'>;
 
 export type EditProfileProps = NativeStackScreenProps<ProfileStackParamList, 'EditProfile'>;
+
+export type NewPostProps = NativeStackScreenProps<HomeStackParamList, 'NewPost'>;

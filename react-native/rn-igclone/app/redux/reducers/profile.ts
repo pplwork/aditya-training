@@ -6,9 +6,6 @@ const initialState: ProfileInitialState = {
 	about: null,
 	loading: false,
 	error: null,
-  followers: [],
-  followings: [],
-  posts: [],
   changed: false,
 };
 
