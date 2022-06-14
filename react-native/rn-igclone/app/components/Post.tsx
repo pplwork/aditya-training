@@ -1,4 +1,4 @@
-import { PostProps } from 'app/types/props';
+import {PostProps} from 'app/types/props';
 import React, {useState} from 'react';
 import {
 	View,
@@ -6,18 +6,23 @@ import {
 	Image,
 	Text,
 	StyleSheet,
-	Button,
+	Pressable,
 } from 'react-native';
 import ButtonIcon from './ButtonIcon';
 import ImageIcon from './ImageIcon';
 
 const Post: React.FC<PostProps> = ({post}): JSX.Element => {
-	const [liked, setLiked] = useState(false);
-	const [show, setShow] = useState(false);
+	const [liked, setLiked] = useState<boolean>(false);
+	const [show, setShow] = useState<boolean>(false);
 
 	const like = () => {
 		setLiked((prev) => !prev);
 	};
+
+	const comment = () => {
+		// TODO: add comment
+		console.log('comment')
+	}
 
 	return (
 		<View style={styles.post}>
@@ -25,7 +30,7 @@ const Post: React.FC<PostProps> = ({post}): JSX.Element => {
 				<ImageIcon
 					buttonStyle={styles.avatar}
 					imageUri={`${post.user?.avatar}`}
-					onPress={()=>{}}
+					onPress={() => {}}
 					iconName='account-circle'
 					iconColor='gray'
 					iconSize={40}
@@ -50,19 +55,32 @@ const Post: React.FC<PostProps> = ({post}): JSX.Element => {
 						onPress={like}
 						iconSize={36}
 						iconName={liked ? 'heart' : 'heart-outline'}
+						title={`${post.likeCount}`} 
+						titleStyle={styles.actionTitle}
 					/>
 					<ButtonIcon
 						iconColor='black'
 						iconName='comment-outline'
 						iconSize={36}
-						onPress={() => console.log('comment')}
+						onPress={comment}
+						title={`${post.commentCount}`}
+						titleStyle={styles.actionTitle}
 					/>
 				</View>
 				<Text style={styles.caption}>{post.caption}</Text>
-				<View style={styles.showButton}>
-					<Button title={show ? 'Show' : 'Hide'} onPress={() => setShow(prev => !prev)} />
-				</View>
-				<Text style={styles.text}>{post.description}</Text>
+				<Text style={styles.text}>
+					{post.description && (post.description.length > 100) && !show
+						? post.description?.substring(0, 100) + '...'
+						: post.description}
+				</Text>
+				{post.description && (post.description.length > 100) && (
+					<Pressable
+						onPress={() => setShow((prev) => !prev)}
+						style={styles.showButton}
+					>
+						<Text>{show ? 'Hide' : 'Show'}</Text>
+					</Pressable>
+				)}
 			</View>
 		</View>
 	);
@@ -100,11 +118,20 @@ const styles = StyleSheet.create({
 	caption: {},
 	text: {},
 	showButton: {
-		width: 30,
+		backgroundColor: '#0002',
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingVertical: 2,
+		paddingHorizontal: 10,
+		alignSelf: 'center'
 	},
 	reactions: {
 		flexDirection: 'row',
 		padding: 2,
+	},
+	actionTitle: {
+		fontSize: 24,
+		marginLeft: 5,
 	},
 });
 
