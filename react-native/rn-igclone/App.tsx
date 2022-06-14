@@ -1,15 +1,19 @@
 import React from 'react';
-import {LogBox, useWindowDimensions, SafeAreaView, StyleSheet} from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  useColorScheme,
+  useWindowDimensions,
+} from 'react-native';
 
-import {Provider} from 'react-redux';
-import {store} from './app/redux';
-
-import {Navigation} from './app/navigators';
-
-LogBox.ignoreLogs(['Setting a timer for a long period of time']);
+import { Provider } from 'react-redux';
+import { Navigation } from 'src/navigators';
+import { store } from 'src/redux';
 
 const App: React.FC = (): JSX.Element => {
 	const {width, height} = useWindowDimensions();
+  const isDarkMode = useColorScheme() === 'dark';
 
 	const styles = StyleSheet.create({
 		container: {
@@ -21,6 +25,7 @@ const App: React.FC = (): JSX.Element => {
 	return (
 		<Provider store={store}>
 			<SafeAreaView style={styles.container}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
 				<Navigation />
 			</SafeAreaView>
 		</Provider>
