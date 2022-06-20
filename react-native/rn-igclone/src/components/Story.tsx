@@ -22,8 +22,6 @@ const Story: React.FC<StoryProps> = ({story, size}): JSX.Element => {
 					<Image
 						style={{...styles.thumbnail, ...styles[`thumbnail_${size ?? "md"}`]}}
 						source={{uri: story.thumbnail}}
-						width={75}
-						height={75}
 					/>
 				</View>
 				<Text style={styles.username}>{story.username}</Text>

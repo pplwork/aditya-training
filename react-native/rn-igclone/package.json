@@ -1,5 +1,5 @@
 {
-  "name": "igclone",
+  "name": "mobile",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,9 +15,7 @@
     "@react-navigation/material-top-tabs": "^6.2.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
-    "@react-navigation/stack": "^6.2.1",
     "@reduxjs/toolkit": "^1.8.2",
-    "expo-image-picker": "^13.1.1",
     "firebase": "^9.8.3",
     "react": "17.0.2",
     "react-native": "0.68.2",

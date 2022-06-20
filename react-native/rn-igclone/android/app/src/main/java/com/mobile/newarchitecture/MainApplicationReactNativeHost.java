@@ -1,4 +1,4 @@
-package com.igclone.newarchitecture;
+package com.mobile.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.igclone.BuildConfig;
-import com.igclone.newarchitecture.components.MainComponentsRegistry;
-import com.igclone.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.mobile.BuildConfig;
+import com.mobile.newarchitecture.components.MainComponentsRegistry;
+import com.mobile.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

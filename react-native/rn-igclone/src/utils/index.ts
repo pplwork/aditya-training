@@ -2,7 +2,7 @@ import {UserInfo} from 'firebase/auth/react-native';
 import {User} from 'src/types/redux';
 import {storage} from 'src/firebase.config';
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
-import * as ImagePicker from 'expo-image-picker';
+import ImagePicker from 'react-native-image-picker';
 
 export const getUserObject = (user: UserInfo): User => {
 	return {
@@ -29,29 +29,27 @@ export const uploadFile = async (
 };
 
 export const openCamera = async (
-	mediaTypes: ImagePicker.MediaTypeOptions,
-	aspect: [number, number]
+	mediaType: ImagePicker.CameraOptions["mediaType"],
+	maxHeight: ImagePicker.CameraOptions["maxHeight"],
+	maxWidth: ImagePicker.CameraOptions["maxWidth"],
 ) => {
-	const hasPermissions = await ImagePicker.getCameraPermissionsAsync();
-
-	if (!hasPermissions) return;
-
-	return await ImagePicker.launchCameraAsync({
-		mediaTypes,
-		allowsEditing: true,
-		aspect,
+	return await ImagePicker.launchCamera({
+		mediaType,
+		maxHeight,
+		maxWidth,
 		quality: 1,
 	});
 };
 
 export const pickFromDevice = async (
-	mediaTypes: ImagePicker.MediaTypeOptions,
-	aspect: [number, number]
+	mediaType: ImagePicker.CameraOptions["mediaType"],
+	maxHeight: ImagePicker.CameraOptions["maxHeight"],
+	maxWidth: ImagePicker.CameraOptions["maxWidth"],
 ) => {
-	return await ImagePicker.launchImageLibraryAsync({
-		mediaTypes,
-		allowsEditing: true,
-		aspect,
+	return await ImagePicker.launchImageLibrary({
+		mediaType,
+		maxHeight,
+		maxWidth,
 		quality: 1,
 	});
 };

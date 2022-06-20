@@ -1,4 +1,4 @@
-import {db, auth} from 'igclone/src/firebase.config';
+import {db, auth} from 'src/firebase.config';
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {
 	addDoc,
