@@ -2,7 +2,6 @@ import {UserInfo} from 'firebase/auth/react-native';
 import {User} from 'src/types/redux';
 import {storage} from 'src/firebase.config';
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
-import ImagePicker from 'react-native-image-picker';
 
 export const getUserObject = (user: UserInfo): User => {
 	return {
@@ -26,30 +25,4 @@ export const uploadFile = async (
 	const blob = await (await fetch(uri)).blob();
 	await uploadBytes(storageRef, blob);
 	return await getDownloadURL(storageRef);
-};
-
-export const openCamera = async (
-	mediaType: ImagePicker.CameraOptions["mediaType"],
-	maxHeight: ImagePicker.CameraOptions["maxHeight"],
-	maxWidth: ImagePicker.CameraOptions["maxWidth"],
-) => {
-	return await ImagePicker.launchCamera({
-		mediaType,
-		maxHeight,
-		maxWidth,
-		quality: 1,
-	});
-};
-
-export const pickFromDevice = async (
-	mediaType: ImagePicker.CameraOptions["mediaType"],
-	maxHeight: ImagePicker.CameraOptions["maxHeight"],
-	maxWidth: ImagePicker.CameraOptions["maxWidth"],
-) => {
-	return await ImagePicker.launchImageLibrary({
-		mediaType,
-		maxHeight,
-		maxWidth,
-		quality: 1,
-	});
 };

@@ -6,8 +6,8 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DropDown from 'src/components/DropDown';
 import mock from 'src/mock';
 import {DropDownOptionProps, NewPostProps} from 'src/types/props';
-import {openCamera, pickFromDevice, uploadFile} from 'src/utils';
-import {ImagePickerResult, MediaTypeOptions} from 'expo-image-picker';
+import {uploadFile} from 'src/utils';
+import {CameraOptions, ImagePickerResponse, launchCamera, launchImageLibrary} from 'react-native-image-picker'
 import {useDispatch, createPost, useSelector} from 'src/redux';
 
 const NewPost: React.FC<NewPostProps> = ({navigation}): JSX.Element => {
@@ -42,15 +42,19 @@ const NewPost: React.FC<NewPostProps> = ({navigation}): JSX.Element => {
 	};
 	const handleSelect = async (option: DropDownOptionProps) => {
 		setChooseOptions(false);
-		let result: ImagePickerResult | undefined;
+		let result: ImagePickerResponse;
+		let options: CameraOptions = {
+			mediaType: 'mixed',
+			quality: 1,
+		};
 
 		if (option.title === 'Open Camera')
-			result = await openCamera(MediaTypeOptions.All, [1, 1]);
-		else result = await pickFromDevice(MediaTypeOptions.All, [1, 1]);
+			result = await launchCamera(options);
+		else result = await launchImageLibrary(options);
 
-		if (!result || result.cancelled) return;
+		if (result.didCancel || !result.assets?.[0].uri) return;
 
-		setPostUri(result.uri);
+		setPostUri(result.assets[0].uri);
 	};
 
 	return (
