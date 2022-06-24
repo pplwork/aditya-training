@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   SafeAreaView,
-  StatusBar,
   StyleSheet,
   useColorScheme,
   useWindowDimensions,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 import { Provider } from 'react-redux';
 import { Navigation } from 'src/navigators';
@@ -25,7 +25,7 @@ const App: React.FC = (): JSX.Element => {
 	return (
 		<Provider store={store}>
 			<SafeAreaView style={styles.container}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+				<StatusBar style="auto" />
 				<Navigation />
 			</SafeAreaView>
 		</Provider>
