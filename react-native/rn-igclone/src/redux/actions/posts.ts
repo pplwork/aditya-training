@@ -1,5 +1,5 @@
 import {db} from 'src/firebase.config';
-import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 import {
 	addDoc,
 	collection,
@@ -8,8 +8,10 @@ import {
 	query,
 	serverTimestamp,
   updateDoc,
+	writeBatch,
+	increment,
 } from 'firebase/firestore';
-import {Comment, CreatePost, Post} from 'src/types/redux';
+import {Comment, Like, CreatePost, Post} from 'src/types/redux';
 
 const createPost = createAsyncThunk(
 	'posts/createPost',
@@ -86,4 +88,27 @@ const getPostComments = createAsyncThunk(
 	}
 );
 
-export {createPost, getPosts, getPostComments, getPostLikes, updatePost};
+const likePost = createAsyncThunk('posts/likePost', async ({postId, user}: Omit<Like, 'timestamp'>) => {
+	try {
+		const batch = writeBatch(db);
+		const postRef = doc(db, `/posts/${postId}`);
+		batch.update(postRef, 'likeCount', increment(1));
+		const likeId = doc(collection(db, `/posts/${postId}/likes`)).id;
+		const likeRef = doc(db, `/posts/${postId}/likes/${likeId}`);
+		batch.set(likeRef, {
+			user,
+			timestamp: serverTimestamp(),
+		});
+		const res = await batch.commit();
+		console.log(res);
+	} catch (err) {
+		console.log(err);
+		return;
+	}
+});
+
+const commentPost = createAsyncThunk('posts/commentPost', async () => {
+
+});
+
+export {createPost, getPosts, getPostComments, getPostLikes, updatePost, likePost, commentPost};

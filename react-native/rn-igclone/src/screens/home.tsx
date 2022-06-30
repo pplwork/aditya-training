@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet, SafeAreaView, FlatList, Text} from 'react-native';
 import Stories from 'src/components/Stories';
 import mock from 'src/mock';
-import { Size } from 'src/types/props';
-import { getPosts, useDispatch, useSelector } from 'src/redux';
+import {Size} from 'src/types/props';
+import {useDispatch, useSelector} from 'src/redux/store';
+import {getPosts} from 'src/redux/actions/posts';
 import Post from 'src/components/Post';
 import EmptyList from 'src/components/EmptyList';
 
 const Home: React.FC = (): JSX.Element => {
-	const {posts, loading} = useSelector(state => state.posts);
+	const {posts, loading} = useSelector((state) => state.posts);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	list: {
-    padding: 2
-  },
+		padding: 2,
+	},
 });
 
 export default React.memo(Home);

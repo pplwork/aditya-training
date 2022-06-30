@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect} from 'react';
 import {
 	View,
 	Text,
@@ -6,22 +6,22 @@ import {
 	StyleSheet,
 	SafeAreaView,
 	TouchableOpacity,
-	ScrollView,
 } from 'react-native';
 import Stories from 'src/components/Stories';
 import mock from 'src/mock';
 import {ProfileTab} from 'src/navigators/ProfileTab';
-import { ProfileProps, Size } from 'src/types/props';
-import { getProfile, useDispatch, useSelector } from 'src/redux';
+import {ProfileProps, Size} from 'src/types/props';
+import {useDispatch, useSelector} from 'src/redux/store';
+import {getProfile} from 'src/redux/actions/profile';
 
 const Profile: React.FC<ProfileProps> = ({navigation}): JSX.Element => {
-	const {user} = useSelector(state => state.auth);
-	const {about, changed} = useSelector(state => state.profile);
+	const {user} = useSelector((state) => state.auth);
+	const {about, changed} = useSelector((state) => state.profile);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if(!user) return;
-		if(about && !changed) return;
+		if (!user) return;
+		if (about && !changed) return;
 
 		dispatch(getProfile(`${user?.id}`));
 	}, [changed]);
@@ -29,10 +29,7 @@ const Profile: React.FC<ProfileProps> = ({navigation}): JSX.Element => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.user}>
-				<Image
-					source={{uri: `${user?.avatar}`}}
-					style={styles.avatar}
-				/>
+				<Image source={{uri: `${user?.avatar}`}} style={styles.avatar} />
 				<View style={styles.info}>
 					<View style={styles.infoBlock}>
 						<Text style={styles.textStrong}>{about?.postCount}</Text>
@@ -52,10 +49,13 @@ const Profile: React.FC<ProfileProps> = ({navigation}): JSX.Element => {
 			<Text style={styles.text}>{user?.name}</Text>
 			<Text style={styles.text}>{about?.bio}</Text>
 
-			<TouchableOpacity style={styles.linkButton} onPress={() => navigation.navigate("EditProfile")}>
+			<TouchableOpacity
+				style={styles.linkButton}
+				onPress={() => navigation.navigate('EditProfile')}
+			>
 				<Text style={styles.linkText}>Edit Profile</Text>
 			</TouchableOpacity>
-			
+
 			<View style={styles.stories}>
 				<Stories stories={mock.stories} size={Size.sm} footer />
 			</View>
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
 		marginVertical: 10,
 	},
 	linkText: {
-		color: '#000'
+		color: '#000',
 	},
 	stories: {},
 	tabView: {

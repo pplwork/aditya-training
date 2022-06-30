@@ -10,19 +10,34 @@ import {
 } from 'react-native';
 import ButtonIcon from './ButtonIcon';
 import ImageIcon from './ImageIcon';
+import {useDispatch, useSelector} from 'src/redux/store';
+import {likePost} from 'src/redux/actions/posts';
 
 const Post: React.FC<PostProps> = ({post}): JSX.Element => {
 	const [liked, setLiked] = useState<boolean>(false);
 	const [show, setShow] = useState<boolean>(false);
+	const {user} = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 
 	const like = () => {
 		setLiked((prev) => !prev);
+		if (!user) return;
+		dispatch(
+			likePost({
+				postId: post.id,
+				user: {
+					id: user.id,
+					username: user.username,
+					avatar: user.avatar,
+				},
+			})
+		);
 	};
 
 	const comment = () => {
 		// TODO: add comment
-		console.log('comment')
-	}
+		console.log('comment');
+	};
 
 	return (
 		<View style={styles.post}>
@@ -55,7 +70,7 @@ const Post: React.FC<PostProps> = ({post}): JSX.Element => {
 						onPress={like}
 						iconSize={36}
 						iconName={liked ? 'heart' : 'heart-outline'}
-						title={`${post.likeCount}`} 
+						title={`${post.likeCount}`}
 						titleStyle={styles.actionTitle}
 					/>
 					<ButtonIcon
@@ -69,11 +84,11 @@ const Post: React.FC<PostProps> = ({post}): JSX.Element => {
 				</View>
 				<Text style={styles.caption}>{post.caption}</Text>
 				<Text style={styles.text}>
-					{post.description && (post.description.length > 100) && !show
+					{post.description && post.description.length > 100 && !show
 						? post.description?.substring(0, 100) + '...'
 						: post.description}
 				</Text>
-				{post.description && (post.description.length > 100) && (
+				{post.description && post.description.length > 100 && (
 					<Pressable
 						onPress={() => setShow((prev) => !prev)}
 						style={styles.showButton}
@@ -123,7 +138,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		paddingVertical: 2,
 		paddingHorizontal: 10,
-		alignSelf: 'center'
+		alignSelf: 'center',
 	},
 	reactions: {
 		flexDirection: 'row',

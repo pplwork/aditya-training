@@ -7,34 +7,42 @@ import DropDown from 'src/components/DropDown';
 import mock from 'src/mock';
 import {DropDownOptionProps, NewPostProps} from 'src/types/props';
 import {uploadFile} from 'src/utils';
-import {CameraOptions, ImagePickerResponse, launchCamera, launchImageLibrary} from 'react-native-image-picker'
-import {useDispatch, createPost, useSelector} from 'src/redux';
+import {
+	CameraOptions,
+	ImagePickerResponse,
+	launchCamera,
+	launchImageLibrary,
+} from 'react-native-image-picker';
+import {useDispatch, useSelector} from 'src/redux/store';
+import {createPost} from 'src/redux/actions/posts';
 
 const NewPost: React.FC<NewPostProps> = ({navigation}): JSX.Element => {
 	const [postUri, setPostUri] = useState<string>('');
 	const [postTitle, setPostTitle] = useState<string>('');
 	const [postDescription, setPostDescription] = useState<string>('');
 	const [chooseOptions, setChooseOptions] = useState<boolean>(false);
-	const {user} = useSelector(state => state.auth);
+	const {user} = useSelector((state) => state.auth);
 
 	const dispatch = useDispatch();
 
 	const handleCreatePost = async () => {
-		console.log(postUri, postTitle, postDescription)
+		console.log(postUri, postTitle, postDescription);
 		// TODO: dispatch create post.
-		if(!postUri) return;
+		if (!postUri) return;
 		const uri = await uploadFile(postUri, 'posts');
-		dispatch(createPost({
-			postUri: uri,
-			caption: postTitle,
-			description: postDescription,
-			user: {
-				avatar: user?.avatar,
-				id: user?.id,
-				username: user?.username,
-				uid: user?.uid,
-			},
-		}));
+		dispatch(
+			createPost({
+				postUri: uri,
+				caption: postTitle,
+				description: postDescription,
+				user: {
+					avatar: user?.avatar,
+					id: user?.id,
+					username: user?.username,
+					uid: user?.uid,
+				},
+			})
+		);
 		setPostTitle('');
 		setPostDescription('');
 		setPostUri('');
@@ -48,8 +56,7 @@ const NewPost: React.FC<NewPostProps> = ({navigation}): JSX.Element => {
 			quality: 1,
 		};
 
-		if (option.title === 'Open Camera')
-			result = await launchCamera(options);
+		if (option.title === 'Open Camera') result = await launchCamera(options);
 		else result = await launchImageLibrary(options);
 
 		if (result.didCancel || !result.assets?.[0].uri) return;

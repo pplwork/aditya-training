@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import Input from 'src/components/Input';
-import { useDispatch, useSelector, signIn } from 'src/redux';
-import { SignInProps } from 'src/types/props';
+import {useDispatch, useSelector} from 'src/redux/store';
+import {signIn} from 'src/redux/actions/auth';
+import {SignInProps} from 'src/types/props';
 
 const SignIn: React.FC<SignInProps> = ({navigation}): JSX.Element => {
-	const {loading, error} = useSelector(state => state.auth);
+	const {loading, error} = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
 	const [email, setEmail] = useState<string>('');
@@ -22,7 +23,9 @@ const SignIn: React.FC<SignInProps> = ({navigation}): JSX.Element => {
 			return;
 		}
 
-		dispatch(signIn({email: email.trim().toLowerCase(), password: pass.trim()}));
+		dispatch(
+			signIn({email: email.trim().toLowerCase(), password: pass.trim()})
+		);
 	};
 
 	return (

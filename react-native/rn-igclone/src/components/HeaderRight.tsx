@@ -2,14 +2,15 @@ import React, {useCallback, useState} from 'react';
 import {StyleSheet, SafeAreaView, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import {signOut, useDispatch} from 'src/redux';
+import {useDispatch} from 'src/redux/store';
+import {signOut} from 'src/redux/actions/auth';
 
 import type {DropDownOptionProps, HomeStackUseNavProps} from 'src/types/props';
 import ButtonIcon from './ButtonIcon';
 import DropDown from './DropDown';
 
 import mock from 'src/mock';
-import { HomeStackParamList } from 'src/types/navigations';
+import {HomeStackParamList} from 'src/types/navigations';
 
 const HeaderRight = () => {
 	const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const HeaderRight = () => {
 
 	const handleSelect = useCallback((item: DropDownOptionProps) => {
 		setOpen(false);
-		const option = `New${item.title}` as keyof HomeStackParamList
+		const option = `New${item.title}` as keyof HomeStackParamList;
 		navigation.navigate(option);
 	}, []);
 
