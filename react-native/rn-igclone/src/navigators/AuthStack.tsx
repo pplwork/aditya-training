@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Start from 'src/screens/start';
 import Register from 'src/screens/register';
 import SignIn from 'src/screens/signin';
-import { useSelector } from 'src/redux';
+import { useSelector } from 'src/redux/store';
 import Loading from 'src/components/Loading';
 
 const Stack = createNativeStackNavigator();

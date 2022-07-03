@@ -7,13 +7,22 @@ import {useDispatch, useSelector} from 'src/redux/store';
 import {getPosts} from 'src/redux/actions/posts';
 import Post from 'src/components/Post';
 import EmptyList from 'src/components/EmptyList';
+import { useFirebaseConnect, useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 
 const Home: React.FC = (): JSX.Element => {
 	const {posts, loading} = useSelector((state) => state.posts);
 	const dispatch = useDispatch();
 
+	useFirestoreConnect({
+		collection: 'profiles',
+	});
+	const firestore = useFirestore()
+
+	console.log(useSelector(state => state.firestore.data));
+
 	useEffect(() => {
 		dispatch(getPosts());
+		firestore.collection('profiles').get().then(h => console.log(h))
 	}, []);
 
 	return (

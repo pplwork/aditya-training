@@ -9,7 +9,7 @@ import HeaderRight from 'src/components/HeaderRight';
 import NewReel from 'src/screens/new-reel';
 import NewStory from 'src/screens/new-story';
 import NewIgtv from 'src/screens/new-igtv';
-import {useSelector} from 'src/redux';
+import {useSelector} from 'src/redux/store';
 import Loading from 'src/components/Loading';
 
 const Stack = createNativeStackNavigator();

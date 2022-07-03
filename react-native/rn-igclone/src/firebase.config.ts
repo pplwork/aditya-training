@@ -1,11 +1,13 @@
 import {initializeApp, FirebaseApp} from 'firebase/app';
-import {Auth, initializeAuth} from 'firebase/auth';
-import {getReactNativePersistence} from 'firebase/auth/react-native';
+import {
+	Auth,
+	initializeAuth,
+	getReactNativePersistence,
+	getAuth,
+} from 'firebase/auth/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Firestore, getFirestore} from 'firebase/firestore';
 import {FirebaseStorage, getStorage} from 'firebase/storage';
-import {createFirestoreInstance} from 'redux-firestore';
-import {store} from 'src/redux/store';
 
 const firebaseConfig = {
 	appId: '1:586118638960:web:793f77630adf5c8ea5b3b5',
@@ -17,20 +19,10 @@ const firebaseConfig = {
 };
 
 const app: FirebaseApp = initializeApp(firebaseConfig);
-const auth: Auth = initializeAuth(app, {
+const auth: Auth = getAuth(app); /* initializeAuth(app, {
 	persistence: getReactNativePersistence(AsyncStorage),
-});
+});*/
 const db: Firestore = getFirestore(app);
 const storage: FirebaseStorage = getStorage(app);
 
-const rrfProps = {
-	config: {
-		userProfile: 'users',
-		useFirestoreForProfile: true,
-	},
-	firebase: app,
-	dispatch: store.dispatch,
-	createFirestoreInstance,
-};
-
-export {auth, db, app, storage, rrfProps};
+export {auth, db, app, storage};

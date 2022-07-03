@@ -1,4 +1,4 @@
 {
   "name": "src",
-  "main": "App.tsx"
+  "main": "index.tsx"
 }

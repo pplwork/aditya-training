@@ -11,7 +11,7 @@ import Reels from 'src/screens/reels';
 
 import HeaderRight from 'src/components/HeaderRight';
 import { ProfileStack } from './ProfileStack';
-import { useSelector } from 'src/redux';
+import { useSelector } from 'src/redux/store';
 
 const BottomTab = createBottomTabNavigator();
 

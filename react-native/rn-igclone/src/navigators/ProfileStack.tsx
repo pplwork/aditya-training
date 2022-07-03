@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Profile from 'src/screens/profile';
 import EditProfile from 'src/screens/edit-profile';
-import {useSelector} from 'src/redux';
+import {useSelector} from 'src/redux/store';
 import Loading from 'src/components/Loading';
 import HeaderRight from 'src/components/HeaderRight';
 
