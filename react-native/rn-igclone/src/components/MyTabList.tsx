@@ -1,6 +1,5 @@
 import React from 'react';
 import {FlatList, Image, View, StyleSheet} from 'react-native';
-import {ProfileTabListProps} from 'src/types/props';
 
 const ProfileTabList: React.FC<ProfileTabListProps> = ({list, style}) => {
 	return (

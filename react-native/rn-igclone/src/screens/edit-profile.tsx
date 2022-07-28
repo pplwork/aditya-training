@@ -5,7 +5,6 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {uploadFile} from 'src/utils';
 import {useDispatch, useSelector} from 'src/redux/store';
 import Input from 'src/components/Input';
-import {EditProfileProps} from 'src/types/props';
 import ImageIcon from 'src/components/ImageIcon';
 import {updateProfile} from 'src/redux/actions/profile';
 import {hydrateUser} from 'src/redux/actions/auth';

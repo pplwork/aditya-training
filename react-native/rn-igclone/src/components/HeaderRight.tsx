@@ -5,12 +5,10 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'src/redux/store';
 import {signOut} from 'src/redux/actions/auth';
 
-import type {DropDownOptionProps, HomeStackUseNavProps} from 'src/types/props';
 import ButtonIcon from './ButtonIcon';
 import DropDown from './DropDown';
 
 import mock from 'src/mock';
-import {HomeStackParamList} from 'src/types/navigations';
 
 const HeaderRight = () => {
 	const dispatch = useDispatch();

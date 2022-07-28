@@ -1,4 +1,3 @@
-import {LoadingProps} from 'src/types/props';
 import React from 'react';
 import {ActivityIndicator, Modal, StyleSheet, Text, View} from 'react-native';
 

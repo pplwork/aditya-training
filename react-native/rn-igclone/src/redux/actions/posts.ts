@@ -11,7 +11,6 @@ import {
 	writeBatch,
 	increment,
 } from 'firebase/firestore';
-import {Comment, Like, CreatePost, Post} from 'src/types/redux';
 
 const createPost = createAsyncThunk(
 	'posts/createPost',

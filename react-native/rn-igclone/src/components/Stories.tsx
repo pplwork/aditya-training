@@ -1,4 +1,3 @@
-import { StoriesProps } from 'src/types/props';
 import React from 'react';
 import {
 	FlatList,

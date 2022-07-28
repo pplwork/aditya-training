@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import {ButtonIconProps} from 'src/types/props'
 
 const ButtonIcon: React.FC<ButtonIconProps> = ({style, iconName, iconSize, iconColor, iconStyle, title, titleStyle, onPress}): JSX.Element => {
 	return (

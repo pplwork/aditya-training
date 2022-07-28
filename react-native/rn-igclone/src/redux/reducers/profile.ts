@@ -1,5 +1,4 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
-import { ProfileInitialState } from "src/types/redux";
 import { updateProfile, getProfile, changeStatus } from "../actions/profile";
 
 const initialState: ProfileInitialState = {

@@ -27,9 +27,6 @@ const store = configureStore({
 		}),
 });
 
-type RootState = ReturnType<typeof store.getState>;
-type AppDispatch = typeof store.dispatch;
-
 const useAppDispatch = (): AppDispatch => useDispatch<AppDispatch>();
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 

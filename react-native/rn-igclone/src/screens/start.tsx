@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
-import {StartProps} from 'src/types/props';
 
 const Start: React.FC<StartProps> = ({navigation}): JSX.Element => {
 	return (

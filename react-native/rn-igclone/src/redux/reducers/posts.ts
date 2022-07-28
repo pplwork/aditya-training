@@ -2,7 +2,6 @@ import {createSlice, Slice} from '@reduxjs/toolkit';
 import {
   createPost, getPostComments, getPostLikes, getPosts, updatePost
 } from '../actions/posts';
-import type {PostsInitialState} from 'src/types/redux';
 
 const initialState: PostsInitialState = {
 	posts: [],

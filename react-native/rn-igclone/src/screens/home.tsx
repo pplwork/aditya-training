@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, SafeAreaView, FlatList, Text} from 'react-native';
 import Stories from 'src/components/Stories';
 import mock from 'src/mock';
-import {Size} from 'src/types/props';
 import {useDispatch, useSelector} from 'src/redux/store';
 import {getPosts} from 'src/redux/actions/posts';
 import Post from 'src/components/Post';

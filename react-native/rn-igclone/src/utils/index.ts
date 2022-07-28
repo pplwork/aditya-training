@@ -1,5 +1,4 @@
 import {UserInfo} from 'firebase/auth/react-native';
-import {User} from 'src/types/redux';
 import {storage} from 'src/firebase.config';
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 

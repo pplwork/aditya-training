@@ -1,7 +1,6 @@
 import {StyleSheet, SectionList, Text, Modal, TouchableWithoutFeedback, View} from 'react-native';
 import React from 'react';
 import ButtonIcon from './ButtonIcon';
-import {DropDownProps} from 'src/types/props';
 
 const DropDown: React.FC<DropDownProps> = ({
 	options,

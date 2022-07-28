@@ -7,7 +7,6 @@ import {
 	toggleLoader,
 	hydrateUser
 } from '../actions/auth';
-import type {AuthInitialState} from 'src/types/redux';
 
 const initialState: AuthInitialState = {
 	user: null,

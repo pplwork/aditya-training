@@ -12,7 +12,6 @@ import {
 	signInWithEmailAndPassword,
 	signOut as logOut,
 } from 'firebase/auth';
-import type {AuthUser, User} from 'src/types/redux';
 import {getUserObject} from 'src/utils';
 import { UserInfo } from 'firebase/auth/react-native';
 

@@ -2,8 +2,6 @@ import {db, auth} from 'src/firebase.config';
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {addDoc, collection, getDoc, doc, getDocs, query, where, updateDoc} from 'firebase/firestore';
 
-import type {CreateProfile} from 'src/types/redux';
-
 const updateProfile = createAsyncThunk(
 	'profile/updateProfile',
 	async ({username, avatar, bio, name, phone, email, id}: CreateProfile) => {

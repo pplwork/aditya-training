@@ -1,4 +1,3 @@
-import {PostProps} from 'src/types/props';
 import React, {useState} from 'react';
 import {
 	View,

@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 import Input from 'src/components/Input';
 import {useDispatch, useSelector} from 'src/redux/store';
 import {signIn} from 'src/redux/actions/auth';
-import {SignInProps} from 'src/types/props';
 
 const SignIn: React.FC<SignInProps> = ({navigation}): JSX.Element => {
 	const {loading, error} = useSelector((state) => state.auth);

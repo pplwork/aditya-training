@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { StoryProps, StoryViewProp } from 'src/types/props';
 import React, { useState } from 'react';
 import {
 	TouchableNativeFeedback,

@@ -10,7 +10,6 @@ import {
 import Stories from 'src/components/Stories';
 import mock from 'src/mock';
 import {ProfileTab} from 'src/navigators/ProfileTab';
-import {ProfileProps, Size} from 'src/types/props';
 import {useDispatch, useSelector} from 'src/redux/store';
 import {getProfile} from 'src/redux/actions/profile';
 

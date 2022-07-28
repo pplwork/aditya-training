@@ -1,4 +1,3 @@
-import { InputProps } from 'src/types/props';
 import React from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 

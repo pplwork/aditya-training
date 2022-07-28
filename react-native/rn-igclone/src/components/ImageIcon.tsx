@@ -1,4 +1,3 @@
-import {ImageIconProps} from 'src/types/props';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';

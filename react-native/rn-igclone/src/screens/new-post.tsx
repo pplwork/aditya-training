@@ -5,7 +5,6 @@ import Input from 'src/components/Input';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DropDown from 'src/components/DropDown';
 import mock from 'src/mock';
-import {DropDownOptionProps, NewPostProps} from 'src/types/props';
 import {uploadFile} from 'src/utils';
 import {
 	CameraOptions,

@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 import Input from 'src/components/Input';
 import {useDispatch, useSelector} from 'src/redux/store';
 import {register} from 'src/redux/actions/auth';
-import {RegisterProps} from 'src/types/props';
 
 const Register: React.FC<RegisterProps> = ({navigation}): JSX.Element => {
 	const {loading, error} = useSelector((state) => state.auth);

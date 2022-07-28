@@ -9,7 +9,6 @@ import Explore from 'src/screens/explore';
 import Activity from 'src/screens/activity';
 import Reels from 'src/screens/reels';
 
-import HeaderRight from 'src/components/HeaderRight';
 import { ProfileStack } from './ProfileStack';
 import { useSelector } from 'src/redux/store';
 
